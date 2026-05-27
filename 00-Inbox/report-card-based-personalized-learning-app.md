@@ -1,6 +1,7 @@
 ---
 title: Report Card-Based Personalized Learning App for Kids
 created: 2026-04-28
+modified: 2026-05-04
 tags:
   - status/draft
   - type/idea
@@ -65,15 +66,30 @@ Create a learning app for kids that allows parents to upload report cards, quest
 - Multi-skill assessment across subjects
 - Progressive tracking over time
 
+**AI Architecture — Local Specialized LLM:**
+- The core technical bet: build a **domain-specific local LLM** trained only on this subject area (education/assessments), not a general-purpose model
+- "Local" here means fine-tuned/specialized — not general like GPT — reducing cost, improving accuracy for this narrow domain
+- This makes the platform defensible: the model improves as more teachers upload content and more students use it
+- Specialized model can handle OCR of handwritten assessments, topic classification, and personalized learning path generation with higher accuracy than a general LLM applied to this domain
+
 **Content Organization:**
 - Centralized school-related content
 - Area-based/topic-based focus
 - Structured learning paths based on student's progress
 
-**Teacher Integration:**
-- Find and map teachers to specific topics/areas
-- Teacher customization based on popularity/views
-- Rating or view-based teacher recommendations
+**Teacher Integration & Content Creation Platform:**
+- Platform where **teachers create content per topic** — each teacher owns their subject/topic
+- Teachers upload/create structured content for their specific topics (video lessons, practice questions, explanations)
+- This is not just a recommendation layer — it is a **teacher-as-creator marketplace**
+- Students are matched to teacher content based on their assessed weak areas from report card analysis
+
+**Teacher Payment Model (2026-05-04 update):**
+- Teachers earn based on **two variables**: number of topics created + number of student visitors on their content
+- Payment cycle: **every 15 days** (bi-monthly payout)
+- Formula concept: `earnings = f(topics_created, student_visitors)` — incentivizes both breadth (more topics) and quality (more students visiting = popular content)
+- This aligns teacher incentives with student outcomes: more useful content → more visitors → higher pay
+- Similar to a creator economy model but scoped to education — teachers are rewarded like content creators
+- Rating or view-based teacher recommendations still apply for surfacing quality content to students
 
 **Delivery Platform:**
 - TV-based learning interface (not computer or mobile gadgets)
@@ -111,10 +127,23 @@ Create a learning app for kids that allows parents to upload report cards, quest
 - Data security and compliance (especially for children)
 
 **Content & Quality:**
-- Content creation - who creates the learning materials?
+- Content creation — teachers create per topic (now clarified 2026-05-04)
 - Teacher verification and quality control?
 - How to balance screen time concerns with TV-based learning?
 - Age range target - elementary? Middle school? All K-12?
+
+**Local LLM Questions (2026-05-04):**
+- What training data does the local LLM need — existing curriculum, assessment patterns, or teacher-created content?
+- How much teacher-created content is needed before the LLM becomes accurate enough?
+- Is "local" referring to on-device inference (privacy-preserving) or a privately hosted model (not OpenAI)?
+- How does the LLM stay updated as teachers add new topics?
+
+**Business Model Questions (2026-05-04):**
+- Who pays the teachers — the platform takes a cut from student subscriptions?
+- What is the revenue source for the platform itself? (Student subscriptions, school licensing, ads?)
+- How is the visitor count tracked fairly — unique visits? Time-on-content? Completion rate?
+- Minimum payout threshold before teachers receive payment?
+- What happens when a teacher's topic has few visitors (new teacher, niche topic)?
 
 **Mental Health & Engagement:**
 - How to address the "I won't study, I'll play" resistance?
@@ -162,6 +191,9 @@ Create a learning app for kids that allows parents to upload report cards, quest
 - Move to `05-Projects/2026-04-Learning-App/` and create project structure
 - Create product requirements document
 - User research with parents in rural areas
+- Define the local LLM training strategy and data requirements
+- Design teacher payment formula: `earnings = f(topics, visitors)` — decide weights
+- Prototype teacher content creation flow (what does a "topic" look like structurally?)
 
 **Weekly Review:**
 - Break down into atomic permanent notes:
@@ -173,6 +205,9 @@ Create a learning app for kids that allows parents to upload report cards, quest
   - Language barriers in educational content
   - Child mental health and learning resistance
   - Self-organizing parenting/society systems
+  - Domain-specific/local LLM vs general-purpose LLM for narrow applications
+  - Creator economy payment models applied to education (teacher-as-creator)
+  - Visitor-based pay as teacher incentive alignment mechanism
 
 ---
 

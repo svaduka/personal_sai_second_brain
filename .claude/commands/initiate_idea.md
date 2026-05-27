@@ -3,9 +3,41 @@ name: initiate_idea
 description: Capture a new idea following Zettelkasten workflow with proper naming, linking, and structure
 ---
 
-You are helping the user capture a new idea in their Zettelkasten-style second brain system. Follow this process carefully to ensure proper structure, naming, and connections.
+You are helping the user capture a new idea or continue an existing idea in their Zettelkasten-style second brain system. Follow this process carefully to ensure proper structure, naming, linking, updates, and connections.
 
-## Step 1: Gather Idea Information
+## Step 0: Check for Existing Ideas in Inbox
+
+Before creating a new idea, scan the `00-Inbox/` folder for existing idea notes.
+
+1. List all Markdown files in `00-Inbox/`
+2. Identify notes that appear to be ideas or draft idea captures
+3. Present the existing idea notes to the user in a table
+4. Ask the user whether they want to:
+   - continue/update an existing idea
+   - create a new idea
+
+### Output Format
+
+| Option | Existing Idea Note | Created Date / Timestamp | Short Description |
+|--------|--------------------|--------------------------|-------------------|
+| 1 | `YYYYMMDDHHMMSS-example-idea.md` | YYYY-MM-DD HH:mm:ss | Brief summary if available |
+| 2 | `new-idea` | N/A | Create a new idea |
+
+If `00-Inbox/` has no existing idea notes, proceed directly to creating a new idea.
+
+### Existing Idea Selection Rules
+
+- If the user selects an existing idea, read the existing note completely before asking questions
+- Summarize what already exists in the note
+- Ask the user what they want to add, clarify, or change
+- Preserve existing content unless the user explicitly asks to modify it
+- Append new information in the proper section where possible
+- Update the `modified` timestamp
+- Do not create a duplicate idea note for the same idea unless the user explicitly asks for a separate note
+
+## Step 1: Gather or Update Idea Information
+
+If the user selected an existing idea, use these questions to update or refine the existing note instead of creating a new note.
 
 Ask the user these questions to capture the essential details:
 
@@ -42,6 +74,8 @@ Present findings and ask: "I found these related notes. Which ones connect to yo
 
 ## Step 4: Generate Timestamp and Filename
 
+If the user selected an existing idea, reuse the existing filename and only update the `modified` timestamp. Do not generate a new filename unless the user explicitly asks to split the idea into a new note.
+
 1. Generate current timestamp in format: `YYYYMMDDHHMMSS`
 2. Convert the idea title to kebab-case (lowercase with hyphens)
 3. Create filename: `YYYYMMDDHHMMSS-idea-title.md`
@@ -51,7 +85,12 @@ Present findings and ask: "I found these related notes. Which ones connect to yo
 - Timestamp: `20260422153045`
 - Filename: `20260422153045-spaced-repetition-learning.md`
 
-## Step 5: Create the Note
+## Step 5: Create or Update the Note
+
+- For a new idea, create the note using the template below
+- For an existing idea, update the existing note while preserving existing useful content
+- Append new details to the correct sections when possible
+- Add a short update note if the new information changes the meaning or direction of the idea
 
 Create the note with this structure (following the permanent note template):
 
@@ -123,20 +162,22 @@ aliases:
 **Review Date**: [Today's date]
 ```
 
-## Step 6: Confirm and Create
+## Step 6: Confirm and Create or Update
 
 1. Show the user a summary:
-   - Filename: `YYYYMMDDHHMMSS-title.md`
+   - Mode: `new idea` or `existing idea update`
+   - Filename: `YYYYMMDDHHMMSS-title.md` or existing filename
    - Location: `00-Inbox/` or `03-Permanent/`
    - Connections: [List of linked notes]
+   - Planned changes: [Summary of additions or updates]
 
 2. Ask for confirmation
 
-3. Create the file in the appropriate location
+3. Create or update the file in the appropriate location
 
-4. Confirm creation and remind them:
+4. Confirm completion and remind them:
    - If placed in **Inbox**: "Process during weekly review to move to permanent notes"
-   - If placed in **Permanent**: "Note created with [X] connections. Consider adding to a relevant MOC during monthly review"
+   - If placed in **Permanent**: "Note created or updated with [X] connections. Consider adding to a relevant MOC during monthly review"
 
 ## Step 7: Post-Creation Suggestions
 
@@ -147,44 +188,18 @@ After creating the note:
 ## Important Rules
 
 - **Always use timestamp prefix**: `YYYYMMDDHHMMSS-title.md` for permanent notes
+- **Check Inbox first**: Always scan `00-Inbox/` for existing ideas before creating a new idea
 - **Always search for connections**: Every permanent note needs 1-2 links minimum
 - **One atomic idea**: If user describes multiple ideas, suggest creating separate notes
 - **User's own words**: Ensure the main idea is in their words, not copy-pasted
 - **Kebab-case titles**: lowercase-with-hyphens
 - **No special characters** in filenames: avoid `/`, `\`, `:`, `*`, `?`, `"`, `<`, `>`, `|`
-
-## Example Interaction Flow
-
-```
-Claude: "Let's capture your idea! What's the core concept you want to note?"
-User: "The compound effect of daily learning"
-Claude: "Great! Where did this idea come from?"
-User: "Reading about learning systems and personal experience"
-Claude: "Can you explain the main concept in 2-3 sentences?"
-User: [provides explanation]
-Claude: "Any supporting details or examples?"
-User: [provides details]
-Claude: "Let me search for related notes..."
-[Shows search results]
-Claude: "I found these related notes:
-- 20260415120000-spaced-repetition-learning.md
-- 20260418093000-knowledge-compounds-over-time.md
-- Learning-Methods-MOC.md
-Which ones connect to your idea?"
-User: [selects connections]
-Claude: "Is this a quick capture or a refined idea?"
-User: "Refined"
-Claude: [Shows summary]
-"I'll create: 03-Permanent/20260422153045-compound-effect-daily-learning.md
-With connections to 2 notes and 1 MOC. Proceed?"
-User: "Yes"
-Claude: [Creates note]
-"✓ Created permanent note with 3 connections. Consider reviewing during monthly MOC updates."
-```
+- **Avoid duplicates**: If a similar idea already exists in `00-Inbox/`, ask whether to update it instead of creating a new note
 
 ## Quality Checklist
 
 Before creating the note, ensure:
+- [ ] `00-Inbox/` was scanned for existing ideas
 - [ ] Timestamp prefix is correct (YYYYMMDDHHMMSS)
 - [ ] Title is descriptive and kebab-case
 - [ ] At least 1-2 connections are identified (for permanent notes)
@@ -194,7 +209,7 @@ Before creating the note, ensure:
 
 ## Output
 
-After successful creation, output:
-- ✓ Full file path of created note
+After successful creation or update, output:
+- ✓ Full file path of created or updated note
 - ✓ Number of connections made
 - ✓ Suggested next action (weekly review if inbox, MOC update if permanent)
