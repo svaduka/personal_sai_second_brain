@@ -155,7 +155,7 @@ Create a learning app for kids that allows parents to upload report cards, quest
 
 > Links to related notes - aim for at least 1-2 connections
 
-- None yet - process during weekly review to find related permanent notes
+- **Spawned**: [[20260603133753-gaptalk-ai-voice-exam-gap-companion]] — focused product distillation of this idea (voice-first, daily habit, everyone not just kids)
 - Potential future connections:
   - Educational technology & personalized learning
   - AI/ML assessment systems
