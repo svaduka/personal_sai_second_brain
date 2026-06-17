@@ -1,7 +1,7 @@
 ---
 title: Hub and Spoke Production Support Agentic System — Agents of Agents
 created: 2026-06-17 18:35:27
-modified: 2026-06-17 18:35:27
+modified: 2026-06-17 19:00:00
 tags:
   - status/draft
   - type/idea
@@ -273,10 +273,48 @@ Step 9: LEARN
 - Audit trail: how is every action logged for compliance?
 - Blast radius limits: what's the maximum action a spoke can take without approval?
 
+## Business Model & Monetization (2026-06-17 update)
+
+> Two revenue model options — not mutually exclusive
+
+**Option A — Managed Service (Production Support Candidate):**
+- We provide a fully managed "production support candidate" — the agentic system acts as a virtual L1/L2 support engineer
+- Customer pays a flat monthly fee (like hiring a support person, but cheaper)
+- We handle hosting, LLM costs, spoke maintenance, knowledge base updates
+- Pricing: fraction of a full-time support engineer salary
+- Value prop: "Replace your night-shift L1 with an agent that never sleeps"
+
+**Option B — LLM Token Cost Pass-Through:**
+- Customer runs the system, we charge based on LLM token usage
+- Markup on token costs (our margin) + platform fee
+- Customer pays per incident or per token consumed
+- Lower upfront commitment, usage-based scaling
+
+**Local LLM Strategy (Cost Reduction):**
+- Build/fine-tune a **company-local LLM** deployed on-premise or in their VPC
+- Dramatically reduces per-token cost vs. API calls to Claude/GPT
+- The local LLM handles routine spoke tasks (log parsing, pattern matching, known issue lookup)
+- Escalate to a more capable model (Claude/GPT) only for complex RCA and fix generation
+- This creates a **tiered inference model**:
+  ```
+  Tier 1: Local LLM (cheap, fast)     → 80% of tasks (routine investigation)
+  Tier 2: Cloud LLM (capable, costly) → 20% of tasks (complex RCA, code fixes)
+  ```
+- Research needed: which open-source base model to fine-tune? (Llama, Mistral, Qwen?)
+- Training data: past RCAs, runbooks, incident logs from the customer's own environment
+- The more incidents the system handles, the better the local model becomes — flywheel effect
+
+**Combined Model (Recommended):**
+- Offer both options: managed service OR self-hosted with token billing
+- Local LLM reduces cost for both models — our margin improves, customer pays less
+- Upsell: "Start with cloud LLM → we fine-tune a local model after 100 incidents → your costs drop 60%"
+
 ## Tech Stack (Potential)
 
 - **Hub**: Claude Agent SDK or custom orchestrator
 - **Spokes**: Individual Claude agents with MCP tools per domain
+- **Local LLM**: Fine-tuned open-source model (Llama/Mistral) for routine spoke tasks
+- **Cloud LLM**: Claude API for complex reasoning (RCA, fix generation)
 - **Ingestion**: FastAPI webhook server + polling adapters
 - **State**: PostgreSQL or event log (Kafka)
 - **Knowledge Base**: Vector DB (pgvector) + structured RCA store
@@ -290,6 +328,9 @@ Step 9: LEARN
 - [ ] Build prototype: Hub + 2 spokes (Log Agent + Infra Agent)
 - [ ] Build ingestion API (webhook endpoint)
 - [ ] Test with a simulated P1 incident
+- [ ] Research open-source LLMs for local fine-tuning (Llama 3, Mistral, Qwen)
+- [ ] Estimate token cost savings: cloud-only vs. tiered local+cloud model
+- [ ] Define pricing: managed service monthly fee vs. per-token billing
 - [ ] If pursuing: move to `05-Projects/2026-06-Production-Support-Agents/`
 
 ---
