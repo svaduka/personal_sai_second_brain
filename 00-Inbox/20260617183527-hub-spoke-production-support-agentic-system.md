@@ -309,6 +309,12 @@ Step 9: LEARN
 - Local LLM reduces cost for both models — our margin improves, customer pays less
 - Upsell: "Start with cloud LLM → we fine-tune a local model after 100 incidents → your costs drop 60%"
 
+**Key Takeaways:**
+1. **Business Model**: Two options — sell it as a managed "virtual support candidate" (flat fee, like hiring someone) OR charge on LLM token usage with markup
+2. **Local LLM Strategy**: Fine-tune a company-local model for 80% of routine tasks (log parsing, known issues), escalate to cloud LLM only for complex RCA — dramatically cuts cost
+3. **Combined upsell path**: Start cloud → fine-tune local after 100 incidents → costs drop 60%
+4. **First move when ready to build**: Local LLM research is the strongest starting point — it determines cost structure and competitive advantage
+
 ## Tech Stack (Potential)
 
 - **Hub**: Claude Agent SDK or custom orchestrator
