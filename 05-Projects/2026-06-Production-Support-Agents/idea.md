@@ -315,6 +315,84 @@ triggers:
 | 2026-06-17 | Added local LLM strategy: tiered inference (80/20 split) | Reduce cost, increase margin, create competitive moat |
 | 2026-06-17 | Added key takeaways summary | Crystallize the core value propositions |
 | 2026-06-18 | Moved to project status, created requirements document | Ready to formalize and build |
+| 2026-06-20 | Research completed — 4 domain research files in research/ | Covers responsibilities, incident patterns, 10 industries, tools/metrics/teams |
+| 2026-06-21 | Strategic validation — MVP narrowed to Databricks-first | Strongest alignment with personal experience (UNFI, Databricks, SOX, cloud). Start specific, generalize later |
+| 2026-06-21 | Added phased roadmap (3/6/12 months) | Focus on proving value fast with Databricks before expanding to multi-platform |
+| 2026-06-21 | Revenue model validated — enterprise SaaS pricing | $2K/mo/customer or $50-250K enterprise license — ROI easy to justify against support team costs |
+
+---
+
+## Strategic Validation (2026-06-21)
+
+> Why this is the strongest idea to pursue among all project concepts
+
+### Why Production Support Agentic Platform Wins
+
+- **Direct experience alignment**: Years of enterprise production support, Databricks, Snowflake, cloud, monitoring, logs, data pipelines
+- **Universal pain point**: Every large company struggles with L1/L2 support costs — millions annually on support teams and large offshore teams
+- **Repetitive incident patterns**: Databricks job failures, schema changes, missing source files, delayed data arrivals, permission issues, cluster failures, Snowflake warehouse issues, API failures — most are automatable
+- **Clear ROI**: If MTTR drops 50% and L1 effort drops 70%, the savings justify the platform immediately
+- **Moat through data**: Every incident makes the system smarter — flywheel effect with knowledge base and local LLM fine-tuning
+
+### Concrete MVP: Databricks Production Support Agent
+
+> Do not try to solve everything. Start with what you know best.
+
+**Capabilities (Phase 1):**
+- Read Databricks job failures
+- Analyze Spark/DLT/Airflow logs
+- Search runbooks and SOPs
+- Recommend fixes with confidence scores
+- Draft preliminary RCA with timeline
+
+**This directly mirrors the daily workflow:**
+1. Alert fires
+2. Support engineer investigates
+3. Checks logs
+4. Checks pipeline status
+5. Checks recent deployments
+6. Identifies root cause
+7. Creates ticket
+8. Escalates if needed
+
+**The agent replaces steps 2-7 autonomously, with human approval at step 8.**
+
+### Phased Roadmap
+
+**Phase 1 — Foundation (3 months):**
+- Databricks Job Failure Agent (Log Agent + App Agent)
+- Log Analyzer with pattern recognition
+- RCA Generator with evidence chain
+- Runbook Search via knowledge base
+
+**Phase 2 — Integration (6 months):**
+- Auto-remediation with approval gates (restart jobs, scale clusters, re-run pipelines)
+- Teams/Slack integration for notifications and approvals
+- ServiceNow/Jira integration for ticket creation and updates
+
+**Phase 3 — Multi-Platform (12 months):**
+- Databricks ✓ (Phase 1)
+- Snowflake support
+- Apache Airflow support
+- Microsoft Azure native services
+- Amazon Web Services native services
+
+### Revenue Projections
+
+**Option 1 — SaaS:**
+- $2,000/month/customer × 100 customers = $200,000/month = $2.4M ARR
+
+**Option 2 — Enterprise License:**
+- $50K-$250K/customer/year × 10-20 customers = $500K-$5M ARR
+
+**Combined with local LLM strategy:** Margins improve as local model handles 80% of routine tasks at fraction of cloud LLM cost.
+
+### Answers to Open Questions
+
+| ID | Answer | Date |
+|----|--------|------|
+| Q-009 | Start with enterprise customers (own team use case first, then sell) | 2026-06-21 |
+| Q-010 | Log Agent + App Agent (Databricks-focused) — these cover the Databricks job failure MVP | 2026-06-21 |
 
 ---
 
@@ -328,6 +406,9 @@ triggers:
 | D-002 | 2026-06-17 | Two business models (managed + token) | Managed only, Token only, Both | Both gives flexibility — enterprise wants managed, startups want pay-per-use. |
 | D-003 | 2026-06-17 | Tiered LLM (local + cloud) | Cloud only, Local only, Tiered | Cloud-only is expensive at scale. Local-only lacks capability for complex RCA. Tiered gives best of both. |
 | D-004 | 2026-06-18 | Single idea.md as living document | Separate PRD + decision log + changelog, Single file | Single file reduces context switching. Everything about the project lives in one place. |
+| D-005 | 2026-06-21 | MVP focus: Databricks production support first | Databricks, Snowflake, Generic, Multi-platform | Databricks aligns with personal experience (UNFI, FinQ). Start specific with known domain, generalize after proving value. |
+| D-006 | 2026-06-21 | Phase 1 spokes: Log Agent + App Agent | Log+App, Log+Infra, Log+Deploy, All 5 | Log+App covers the core Databricks job failure → log analysis → RCA workflow. Other spokes add later. |
+| D-007 | 2026-06-21 | Target customer: Enterprise first, own team as proof | Enterprise, Startup, Own team only | Own team as dogfood → enterprise sales with proven results. Startups lack budget for production support tooling. |
 
 ---
 
@@ -345,8 +426,8 @@ triggers:
 | Q-006 | What pricing makes a "virtual support candidate" competitive vs. hiring? | P2 | Open |
 | Q-007 | How to validate proposed fixes don't introduce regressions? | P1 | Open |
 | Q-008 | Approval gate timeout — escalate to whom? | P1 | Open |
-| Q-009 | Target customer segment — SaaS, enterprise, or own team first? | P0 | Open |
-| Q-010 | MVP: which 2 spokes to build first? | P0 | Open |
+| Q-009 | Target customer segment — SaaS, enterprise, or own team first? | P0 | **Resolved** — Enterprise, own team as dogfood first |
+| Q-010 | MVP: which 2 spokes to build first? | P0 | **Resolved** — Log Agent + App Agent (Databricks-focused) |
 
 ---
 
@@ -357,7 +438,8 @@ triggers:
 | Date | Reviewer | Changes Made | Notes |
 |------|----------|-------------|-------|
 | 2026-06-18 | Sai | Initial requirements document created | Moved from inbox idea to project. FR-001 through FR-008, NFR-001 through NFR-007 defined. |
+| 2026-06-21 | Sai | Strategic validation + MVP focus + phased roadmap added | Databricks-first MVP, 3/6/12 month phases, revenue projections, Q-009 and Q-010 resolved. Research directory complete (4 files, 1,745 lines). |
 
 ---
 
-*Last updated: 2026-06-18*
+*Last updated: 2026-06-21*
